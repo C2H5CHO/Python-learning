@@ -185,13 +185,156 @@ else:
 # 若for循环全部执行完毕，没有被break终止，则运行else模块
 
 # 4、无限循环--while循环
-# 4.1 while循环的用途
+# 4.1 while的用途
+# 若用if语句，代码需要重复执行，但又不清楚具体需要执行的次数，故引入while循环
+
+# 4.2 while的一般形式
+# 模板--while 判断条件:
+#           条件为真，执行语句
+#           条件为假，结束循环
 # 题目：猜数字
+"""
 number = 18
+guess = int(input("请输入正整数："))
+while guess != number:
+    if guess < number:
+        print("猜小了...")
+    elif guess > number:
+        print("猜大了...")
+    guess = int(input(">>："))
+print("Congratulation！猜对了！")
+"""
 
+# 4.3 while与风向标
+"""
+number = 20
+flag = True
+while flag:
+    guess = int(input("请输入正整数："))
+    if guess < number:
+        print("猜小了...")
+    elif guess > number:
+        print("猜大了...")
+    else:
+        print("Congratulation！猜对了！")
+        flag = False
+"""
 
+# 4.4 while与break、continue
+"""
+number = 8
+while True:
+    guess = int(input("请输入正整数："))
+    if guess < number:
+        print("猜小了...")
+    elif guess > number:
+        print("猜大了...")
+    else:
+        print("Congratulation！猜对了！")
+        break
+"""
 
+i = 0
+while i < 5:
+    i += 1
+    if i % 2 == 0:
+        continue
+    print(i)
+# 输出：1
+#      3
+#      5
 
+# 4.5 while与else
+count = 0
+while count < 5:
+    count += 1
+    print("Time", count)
+else:
+    print("循环结束")
+# 输出：Time 1
+#      Time 2
+#      Time 3
+#      Time 4
+#      Time 5
+#      循环结束
+# 若while循环全部执行完毕，且没有被break终止，则执行else模块
 
+# 删除未读书籍列表中的已读书籍
+def remove_specific_value(lst, value):
+    while value in lst:
+        lst.remove(value)
+    return lst
 
+books = ['Python基础', '数据结构', 'Python基础', '算法导论', 'Python基础']
+print("原始书籍列表：", books)
+# 输出：原始书籍列表： ['Python基础', '数据结构', 'Python基础', '算法导论', 'Python基础']
+books = remove_specific_value(books, 'Python基础')
+print("删除特定值后的书籍列表：", books)
+# 输出：删除特定值后的书籍列表： ['数据结构', '算法导论']
 
+# 将未读书籍列表存入已读书籍列表
+def move_books_to_read(unread_books, read_books):
+    while unread_books:
+        current_book = unread_books.pop(0)  # 取出列表中的第一个元素
+        print("正在阅读: ", current_book)
+        read_books.append(current_book)
+        print("已读书籍列表更新为: ", read_books)
+    return read_books
+
+unread_books = ['Python基础', '数据结构', '算法导论']
+read_books = []
+print("初始未读书籍列表：", unread_books)
+# 输出：初始未读书籍列表： ['Python基础', '数据结构', '算法导论']
+print("初始已读书籍列表：", read_books)
+# 输出：初始已读书籍列表： []
+
+read_books = move_books_to_read(unread_books, read_books)
+
+print("最终未读书籍列表：", unread_books)
+# 输出：最终未读书籍列表： []
+print("最终已读书籍列表：", read_books)
+# 输出：最终已读书籍列表： ['Python基础', '数据结构', '算法导论']
+
+# 5、注意问题
+# 5.1 尽可能少使用多层嵌套--可读性差，容易逼疯自己，折磨别人
+x = y = z = 1
+if x > 0:
+    if y > 0:
+        if z > 0:
+            print("x, y, z are all positive")
+
+# 优化后：
+if x > 0 and y > 0 and z > 0:
+    print("x, y, z are all positive")
+
+# 5.2 避免死循环--条件一直成立，循环永无止境
+"""
+i = 0
+while i < 5:
+    print(i)  # 忘记了i的递增操作，导致死循环
+"""
+
+# 优化后：
+i = 0
+while i < 5:
+    print(i)
+    i += 1  # 增加计数器，避免死循环
+
+# 5.3 封装的条件过于复杂--可读性差，建议封装为函数
+user_input = input(">>：")
+if (user_input.isdigit() and int(user_input) > 0 and int(user_input) % 2 == 0) or \
+   (user_input.find('.') != -1 and len(user_input.split('.')[1]) == 2):
+    print("输入有效")
+
+# 优化后：
+def is_valid_input(user_input):
+    if user_input.isdigit():
+        number = int(user_input)
+        return number > 0 and number % 2 == 0
+    elif user_input.find('.') != -1:
+        parts = user_input.split('.')
+        return len(parts[1]) == 2
+    return False
+
+if is_valid_input(user_input):
+    print("输入有效")
