@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 5
+names: ['black spot', 'greening', 'heathy', 'scab', 'thrips']
+
+roboflow:
+  workspace: calamansi-gq1ke
+  project: calamansi-v9fn1
+  version: 3
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/calamansi-gq1ke/calamansi-v9fn1/dataset/3
