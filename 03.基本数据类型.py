@@ -613,3 +613,5 @@ print(eval(s1))
 # 输出：20
 print(eval(s2))
 # 输出：21.5
+print(123)
+
